@@ -53,3 +53,6 @@ Up2Date.checkVersion(this, new Up2Date.VersionListener() {
 
 ### Status
 This project is very much a **WORK IN PROGRESS**.
+
+### Contribute
+Contributions are welcome!
