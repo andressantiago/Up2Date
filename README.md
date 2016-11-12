@@ -17,12 +17,12 @@ In your app/module level `build.gradle`
 
 ```
 dependencies {
-	compile 'com.github.andressantiago:Up2Date:-SNAPSHOT'
+	compile 'com.github.andressantiago:Up2Date:9bb682a365dcd948f8a7ec6757eb5d0d38516bd7'
 }
 ```
 
-Note: This will always pull the latest `master` code. If you want a particular commit,
-replace `-SNAPSHOT` with a commit hash.
+Note: If you want a particular commit,
+replace the hash with a commit hash of your liking.
 
 ### Usage
 `Up2Date.checkVersion(...)` requires a `Context` (usually an `Activity`), and a `Up2Date.VersionListener`.
