@@ -5,7 +5,7 @@ package com.zarfnates.up2date;
  */
 
 public final class FailureReason {
-    static final int NO_PACKAGE_INFO = 0;
-    static final int NO_APP_VERSION = 1;
-    static final int PLAY_STORE_RESPONSE_ERROR = 2;
+    public static final int NO_PACKAGE_INFO = 0;
+    public static final int NO_APP_VERSION = 1;
+    public static final int PLAY_STORE_RESPONSE_ERROR = 2;
 }
