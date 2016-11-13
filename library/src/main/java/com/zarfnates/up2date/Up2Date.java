@@ -33,12 +33,8 @@ public final class Up2Date {
         Up2Date.versionListener = versionListener;
 
         Context applicationContext = context.getApplicationContext();
-        if(fakePackageName==null)
-            packageName = applicationContext.getPackageName();
-        else
-        {
-            packageName=fakePackageName;
-        }
+
+        packageName = applicationContext.getPackageName();
 
         try {
             PackageInfo packageInfo = applicationContext.getPackageManager().getPackageInfo(packageName, 0);
@@ -49,6 +45,9 @@ public final class Up2Date {
             notifyError(FailureReason.NO_PACKAGE_INFO);
             return;
         }
+
+        if(fakePackageName!=null)
+            packageName=fakePackageName;
 
         new GetVersionCode().execute(PLAY_STORE_BASE_URL + packageName);
     }
