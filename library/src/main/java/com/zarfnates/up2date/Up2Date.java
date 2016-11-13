@@ -56,7 +56,7 @@ public final class Up2Date {
         }
 
         boolean upToDate = false;
-        if (Objects.equals(storeVersion, currentAppVersion)) {
+        if (storeVersion!=null && storeVersion.equals(currentAppVersion)) {
             upToDate = true;
         }
 
