@@ -18,6 +18,11 @@ public final class Up2Date {
     private static String currentAppVersion;
     private static String PLAY_STORE_SELECTOR = "div[itemprop=softwareVersion]";
     private static VersionListener versionListener;
+    private static String fakePackageName=null;
+
+    public static void setFakePackageName(String fakePackageName) {
+        Up2Date.fakePackageName = fakePackageName;
+    }
 
     public static void checkVersion(Context context, VersionListener versionListener) {
 
@@ -28,7 +33,12 @@ public final class Up2Date {
         Up2Date.versionListener = versionListener;
 
         Context applicationContext = context.getApplicationContext();
-        packageName = applicationContext.getPackageName();
+        if(fakePackageName==null)
+            packageName = applicationContext.getPackageName();
+        else
+        {
+            packageName=fakePackageName;
+        }
 
         try {
             PackageInfo packageInfo = applicationContext.getPackageManager().getPackageInfo(packageName, 0);
