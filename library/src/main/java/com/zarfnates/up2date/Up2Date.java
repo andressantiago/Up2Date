@@ -1,8 +1,10 @@
 package com.zarfnates.up2date;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -18,6 +20,11 @@ public final class Up2Date {
     private static String currentAppVersion;
     private static String PLAY_STORE_SELECTOR = "div[itemprop=softwareVersion]";
     private static VersionListener versionListener;
+    private static String fakePackageName=null;
+
+    public static void setFakePackageName(String fakePackageName) {
+        Up2Date.fakePackageName = fakePackageName;
+    }
 
     public static void checkVersion(Context context, VersionListener versionListener) {
 
@@ -28,6 +35,7 @@ public final class Up2Date {
         Up2Date.versionListener = versionListener;
 
         Context applicationContext = context.getApplicationContext();
+
         packageName = applicationContext.getPackageName();
 
         try {
@@ -39,6 +47,9 @@ public final class Up2Date {
             notifyError(FailureReason.NO_PACKAGE_INFO);
             return;
         }
+
+        if(fakePackageName!=null)
+            packageName=fakePackageName;
 
         new GetVersionCode().execute(PLAY_STORE_BASE_URL + packageName);
     }
@@ -56,11 +67,19 @@ public final class Up2Date {
         }
 
         boolean upToDate = false;
-        if (Objects.equals(storeVersion, currentAppVersion)) {
+        if (storeVersion!=null && storeVersion.equals(currentAppVersion)) {
             upToDate = true;
         }
 
         Up2Date.versionListener.versionCheckSuccess(upToDate, storeVersion);
+    }
+
+    public static void goToStore(Context c){
+        try {
+            c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+packageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName"+packageName)));
+        }
     }
 
     private static class GetVersionCode extends AsyncTask<String, Void, String> {
